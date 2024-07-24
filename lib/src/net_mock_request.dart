@@ -15,6 +15,20 @@ class NetMockRequest extends Equatable {
     this.body = "",
   });
 
+  NetMockRequest copyWith({
+    Uri? url,
+    Method? method,
+    Map<String, String>? headers,
+    String? body,
+  }) {
+    return NetMockRequest(
+        url: url ?? this.url,
+        method: method ?? this.method,
+        headers: headers ?? this.headers,
+        body: body ?? this.body
+    );
+  }
+
   @override
   List<Object?> get props => [url, method, headers, body];
 }

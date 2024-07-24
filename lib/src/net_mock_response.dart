@@ -11,6 +11,18 @@ class NetMockResponse extends Equatable {
     this.body = "",
   });
 
+  NetMockResponse copyWith({
+    int? code,
+    Map<String, String>? headers,
+    String? body,
+  }) {
+    return NetMockResponse(
+      code: code ?? this.code,
+      headers: headers ?? this.headers,
+      body: body ?? this.body,
+    );
+  }
+
   @override
   List<Object?> get props => [code, headers, body];
 }
