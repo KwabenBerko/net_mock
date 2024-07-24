@@ -53,7 +53,6 @@ void main() {
     // Define the request and response
     final request = NetMockRequest(url: url, method: Method.get);
     final response = NetMockResponse(code: 200, body: '{"message": "Hello, world!"}');
-
     // Add the mock to NetMock
     netMock.addMock(request, response);
 
