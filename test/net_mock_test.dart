@@ -36,8 +36,8 @@ void main() async {
   });
 
   test("should add requests and responses to allowedMocks list", () {
-    sut.addMock(testRequest1, testResponse1);
-    sut.addMock(testRequest2, testResponse2);
+    sut.addMock(request: testRequest1, response: testResponse1);
+    sut.addMock(request: testRequest2, response: testResponse2);
 
     expect(
       sut.allowedMocks,
@@ -53,7 +53,7 @@ void main() async {
     () async {
       final getRequest = testRequest1.copyWith();
       final getResponse = testResponse1.copyWith();
-      sut.addMock(getRequest, getResponse);
+      sut.addMock(request: getRequest, response: getResponse);
 
       final response = await sut.client.get(baseUrl);
 
@@ -68,7 +68,7 @@ void main() async {
     () async {
       final headRequest = testRequest2.copyWith(method: Method.head);
       final headResponse = testResponse1.copyWith(body: null);
-      sut.addMock(headRequest, headResponse);
+      sut.addMock(request: headRequest, response: headResponse);
 
       final response = await sut.client.head(baseUrl);
 
@@ -88,7 +88,7 @@ void main() async {
         body: body,
       );
       final postResponse = testResponse1.copyWith(code: 201);
-      sut.addMock(postRequest, postResponse);
+      sut.addMock(request: postRequest, response: postResponse);
 
       final response = await sut.client.post(
         baseUrl,
@@ -112,7 +112,7 @@ void main() async {
         body: body,
       );
       final putResponse = testResponse1.copyWith();
-      sut.addMock(putRequest, putResponse);
+      sut.addMock(request: putRequest, response: putResponse);
 
       final response = await sut.client.put(
         baseUrl,
@@ -136,7 +136,7 @@ void main() async {
         body: body,
       );
       final deleteResponse = testResponse1.copyWith(code: 204);
-      sut.addMock(deleteRequest, deleteResponse);
+      sut.addMock(request: deleteRequest, response: deleteResponse);
 
       final response = await sut.client.delete(
         baseUrl,
@@ -155,7 +155,7 @@ void main() async {
     () async {
       final connectRequest = testRequest1.copyWith(method: Method.connect);
       final connectResponse = testResponse1.copyWith();
-      sut.addMock(connectRequest, connectResponse);
+      sut.addMock(request: connectRequest, response: connectResponse);
 
       final request = Request(Method.connect.name, baseUrl);
       final response = await sut.client.send(request);
@@ -174,7 +174,7 @@ void main() async {
     () async {
       final optionsRequest = testRequest1.copyWith(method: Method.options);
       final optionsResponse = testResponse1.copyWith();
-      sut.addMock(optionsRequest, optionsResponse);
+      sut.addMock(request: optionsRequest, response: optionsResponse);
 
       final request = Request(Method.options.name, baseUrl);
       final response = await sut.client.send(request);
@@ -193,7 +193,7 @@ void main() async {
     () async {
       final traceRequest = testRequest1.copyWith(method: Method.trace);
       final traceResponse = testResponse1.copyWith();
-      sut.addMock(traceRequest, traceResponse);
+      sut.addMock(request: traceRequest, response: traceResponse);
 
       final request = Request(Method.trace.name, baseUrl);
       final response = await sut.client.send(request);
@@ -217,7 +217,7 @@ void main() async {
         body: body,
       );
       final patchResponse = testResponse1.copyWith();
-      sut.addMock(patchRequest, patchResponse);
+      sut.addMock(request: patchRequest, response: patchResponse);
 
       final response = await sut.client.patch(
         baseUrl,
@@ -243,8 +243,8 @@ void main() async {
   test(
     "should return default response when no queued responses are available and a default response is set",
     () async {
-      sut.addMock(testRequest1, testResponse1);
-      sut.addMock(testRequest2, testResponse2);
+      sut.addMock(request: testRequest1, response: testResponse1);
+      sut.addMock(request: testRequest2, response: testResponse2);
       sut.defaultResponse = defaultResponse;
 
       final response1 = await sut.client.get(baseUrl);

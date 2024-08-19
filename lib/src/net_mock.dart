@@ -52,7 +52,10 @@ class NetMock {
   }
 
   /// Adds a new mock request and response pair to the queue.
-  void addMock(NetMockRequest request, NetMockResponse response) {
+  void addMock({
+    required NetMockRequest request,
+    required NetMockResponse response,
+  }) {
     final allowedMock = NetMockRequestResponse(
       request: request,
       response: response,
