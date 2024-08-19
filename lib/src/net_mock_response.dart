@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 
 /// Represents an HTTP response in `net_mock`
 class NetMockResponse extends Equatable {
-
   /// HTTP status code of the expected response.
   final int code;
 
