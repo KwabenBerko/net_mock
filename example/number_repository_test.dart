@@ -4,37 +4,37 @@ import 'package:net_mock/src/net_mock_request.dart';
 import 'package:net_mock/src/net_mock_response.dart';
 import 'package:test/test.dart';
 
-import 'user.dart';
 import 'number_repository.dart';
 
 void main() {
   late NetMock netMock;
-  late UserRepository sut;
+  late NumberRepository sut;
 
   setUp(() {
     netMock = NetMock();
-    sut = UserRepository(client: netMock.client);
+    sut = NumberRepository(client: netMock.client);
   });
 
   test(
-    "should return users",
+    "should return random fact for number",
     () async {
-      final user = "KwabenBerko";
-      final expected = [
-        User(firstName: "Peter", lastName: "Parker"),
-        User(firstName: "Eobard", lastName: "Thawne"),
-      ];
       netMock.addMock(
         request: NetMockRequest(
-          url: Uri.parse("https://api.github.com/users/$user/repos"),
+          url: Uri.parse("http://numbersapi.com/42"),
           method: Method.get,
         ),
-        response: NetMockResponse(code: 200, body: ),
+        response: NetMockResponse(
+          code: 200,
+          body: "42 is the number of US gallons in a barrel of oil.",
+        ),
       );
 
-      final result = await sut.getUsers();
+      final result = await sut.getFactForNumber(number: 42);
 
-      expect(result, equals(expected));
+      expect(
+        result,
+        equals("42 is the number of US gallons in a barrel of oil."),
+      );
     },
   );
 }

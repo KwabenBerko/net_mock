@@ -1,13 +1,13 @@
 import 'package:http/http.dart';
 
-import 'user.dart';
-
-class UserRepository {
+class NumberRepository {
   final Client client;
 
-  UserRepository({required this.client});
+  NumberRepository({required this.client});
 
-  Future<List<User>> getUsers() async {
-    return [];
+  Future<String> getFactForNumber({required int number}) async {
+    final url = Uri.parse("http://numbersapi.com/$number");
+    final response = await client.get(url);
+    return response.body;
   }
 }
