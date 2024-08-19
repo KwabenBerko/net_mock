@@ -25,7 +25,7 @@ Add `NetMock` to your pubspec.yaml:
 
 ```yaml
 dependencies:
-  net_mock: ^1.0.0
+  net_mock: ^1.0.1
 ```
 
 Then, run `flutter pub get` to install the package.
@@ -37,33 +37,37 @@ Then, run `flutter pub get` to install the package.
 Here's a basic example of how to use NetMock to mock a GET request in a test:
 
 ```dart
-
 void main() {
   late NetMock netMock;
+  late NumberRepository sut;
 
   setUp(() {
     netMock = NetMock();
+    sut = NumberRepository(client: netMock.client);
   });
 
-  tearDown(() {
-    netMock.close();
-  });
+  test(
+    "should return random fact for number",
+        () async {
+      netMock.addMock(
+        request: NetMockRequest(
+          url: Uri.parse("http://numbersapi.com/42"),
+          method: Method.get,
+        ),
+        response: NetMockResponse(
+          code: 200,
+          body: "42 is the number of US gallons in a barrel of oil.",
+        ),
+      );
 
-  test("your test", () async {
-    final url = Uri.parse('https://google.com');
-    // Define the request and response
-    final request = NetMockRequest(url: url, method: Method.get);
-    final response = NetMockResponse(
-      code: 200,
-      body: '{"message": "Hello, world!"}',
-    );
-    // Add the mock to NetMock
-    netMock.addMock(request, response);
+      final result = await sut.getFactForNumber(number: 42);
 
-    // Replace YourSystemUnderTest with the actual class you are testing
-    final sut = YourSystemUnderTest(client: netMock.client);
-  });
+      expect(
+        result,
+        equals("42 is the number of US gallons in a barrel of oil."),
+      );
+    },
+  );
 }
-
 
 ```
