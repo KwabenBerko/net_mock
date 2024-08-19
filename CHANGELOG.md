@@ -19,3 +19,9 @@
 ### Changed
 
 - Updated README.md
+
+## [1.0.3] - 18-08-2024
+
+### Changed
+
+- Updated README.md

@@ -25,7 +25,7 @@ Add `net_mock` to your pubspec.yaml:
 
 ```yaml
 dependencies:
-  net_mock: ^1.0.2
+  net_mock: ^1.0.3
 ```
 
 Then, run `flutter pub get` to install the package.
