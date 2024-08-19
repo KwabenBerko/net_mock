@@ -1,8 +1,9 @@
-# NetMock
+# net_mock
 
-`NetMock` is a Dart package designed to simplify HTTP request mocking in your tests. It builds on
-top of `http.MockClient`, providing syntactic sugar to make it even easier to define expected requests
-and responses.
+`net_mock` is a Dart package that streamlines the process of mocking HTTP requests in your tests.
+Inspired by [NetMock](https://github.com/DenisBronx/NetMock), it extends the `http.MockClient`
+package by adding a layer of syntactic sugar. This makes it even more straightforward to define and
+manage expected requests and responses, allowing you to focus on writing clear and concise tests.
 
 ## Features
 
