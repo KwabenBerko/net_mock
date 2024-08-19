@@ -8,6 +8,12 @@ import 'net_mock_request.dart';
 import 'net_mock_request_response.dart';
 import 'net_mock_response.dart';
 
+/// A utility class for mocking HTTP requests and responses using `http.MockClient`.
+///
+/// `NetMock` is a syntactic sugar around `http.MockClient` which allows you
+/// to intercept HTTP requests and provide predefined responses for testing purposes.
+/// It maintains a list of mocked requests and their corresponding
+/// responses, as well as a default response for unmatched requests.
 class NetMock {
   late final MockClient client;
   final List<NetMockRequest> _interceptedRequests = [];
@@ -35,14 +41,17 @@ class NetMock {
     });
   }
 
+  /// A list of intercepted requests that have been processed.
   List<NetMockRequest> get interceptedRequests {
     return List.unmodifiable(_interceptedRequests);
   }
 
+  /// A list of un-intercepted requests and their corresponding responses.
   List<NetMockRequestResponse> get allowedMocks {
     return List.unmodifiable(_allowedMocks);
   }
 
+  /// Adds a new mock request and response pair to the queue.
   void addMock(NetMockRequest request, NetMockResponse response) {
     final allowedMock = NetMockRequestResponse(
       request: request,
@@ -51,12 +60,14 @@ class NetMock {
     _allowedMocks.add(allowedMock);
   }
 
+  /// Closes the mock client, releasing any resources.
   void close() {
     client.close();
   }
 }
 
 extension RequestExtension on Request {
+  /// Extension getter to convert `http.MockClient` Request to a NetMockRequest.
   NetMockRequest get toNetMockRequest {
     return NetMockRequest(
       url: url,
@@ -68,6 +79,7 @@ extension RequestExtension on Request {
 }
 
 extension NetMockResponseExtension on NetMockResponse {
+  /// Extension getter to convert NetMockResponse to `http.MockClient` Response.
   Response get toResponse {
     return Response(body, code, headers: headers);
   }
