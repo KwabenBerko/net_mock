@@ -7,3 +7,7 @@
 - Refactored `addMock` function to use named parameters
 ### Added
 - Added `example` directory
+
+## [1.0.2] - 18-08-2024
+### Changed
+- Updated README.md
