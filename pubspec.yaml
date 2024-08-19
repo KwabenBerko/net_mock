@@ -1,6 +1,6 @@
 name: net_mock
 description: A Dart package designed to simplify HTTP request mocking in your tests.
-version: 1.0.2
+version: 1.0.3
 repository: https://github.com/KwabenBerko/net_mock
 
 environment:
