@@ -14,18 +14,18 @@ manage expected requests and responses, allowing you to focus on writing clear a
 
 ### Prerequisites
 
-To use `NetMock`, ensure you have the following:
+To use `net_mock`, ensure you have the following:
 
 1. Dart SDK `2.12.0` or later.
 2. A Flutter or Dart project.
 
 ### Installation
 
-Add `NetMock` to your pubspec.yaml:
+Add `net_mock` to your pubspec.yaml:
 
 ```yaml
 dependencies:
-  net_mock: ^1.0.1
+  net_mock: ^1.0.2
 ```
 
 Then, run `flutter pub get` to install the package.
@@ -34,7 +34,7 @@ Then, run `flutter pub get` to install the package.
 
 ### Basic Setup
 
-Here's a basic example of how to use NetMock to mock a GET request in a test:
+Here's a basic example of how to use `net_mock` to mock a GET request in a test:
 
 ```dart
 void main() {
