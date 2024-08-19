@@ -25,8 +25,7 @@ class NetMockRequest extends Equatable {
         url: url ?? this.url,
         method: method ?? this.method,
         headers: headers ?? this.headers,
-        body: body ?? this.body
-    );
+        body: body ?? this.body);
   }
 
   @override
