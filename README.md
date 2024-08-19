@@ -52,7 +52,10 @@ void main() {
     final url = Uri.parse('https://google.com');
     // Define the request and response
     final request = NetMockRequest(url: url, method: Method.get);
-    final response = NetMockResponse(code: 200, body: '{"message": "Hello, world!"}');
+    final response = NetMockResponse(
+      code: 200,
+      body: '{"message": "Hello, world!"}',
+    );
     // Add the mock to NetMock
     netMock.addMock(request, response);
 
