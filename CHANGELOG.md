@@ -31,3 +31,9 @@
 ### Changed
 
 - Export NetMockRequest, NetMockResponse and Method.
+
+## [1.0.5] - 20-08-2024
+
+### Changed
+
+- Export Resource.
