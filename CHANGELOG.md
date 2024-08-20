@@ -25,3 +25,9 @@
 ### Changed
 
 - Updated README.md
+
+## [1.0.4] - 20-08-2024
+
+### Changed
+
+- Export NetMockRequest, NetMockResponse and Method.
