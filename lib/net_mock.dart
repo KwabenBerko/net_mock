@@ -5,3 +5,6 @@
 library net_mock;
 
 export 'src/net_mock.dart';
+export 'src/net_mock_request.dart';
+export 'src/net_mock_response.dart';
+export 'src/method.dart';
