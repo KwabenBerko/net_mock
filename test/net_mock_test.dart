@@ -1,18 +1,22 @@
+import 'dart:io';
+
 import 'package:http/http.dart';
 import 'package:net_mock/net_mock.dart';
-import 'package:net_mock/src/method.dart';
-import 'package:net_mock/src/net_mock_request.dart';
 import 'package:net_mock/src/net_mock_request_response.dart';
-import 'package:net_mock/src/net_mock_response.dart';
-import 'package:net_mock/src/resource.dart';
 import 'package:test/test.dart';
 
 void main() async {
   late NetMock sut;
   final baseUrl = Uri.parse("https://google.com");
   final defaultResponse = NetMockResponse(code: 200);
-  final headers = {"Content-Type": "application/plain; charset=utf-8"};
-  final testRequest1 = NetMockRequest(url: baseUrl, method: Method.get);
+  final headers = {
+    HttpHeaders.contentTypeHeader: "application/json; charset=utf-8"
+  };
+  final testRequest1 = NetMockRequest(
+    url: baseUrl,
+    method: Method.get,
+    headers: headers,
+  );
   final testRequest2 = testRequest1.copyWith();
   final testResponse1 = NetMockResponse(
     code: 200,
@@ -55,7 +59,7 @@ void main() async {
       final getResponse = testResponse1.copyWith();
       sut.addMock(request: getRequest, response: getResponse);
 
-      final response = await sut.client.get(baseUrl);
+      final response = await sut.client.get(baseUrl, headers: headers);
 
       _expectEquals(expected: getResponse, actual: response);
       expect([getRequest], sut.interceptedRequests);
@@ -70,7 +74,7 @@ void main() async {
       final headResponse = testResponse1.copyWith(body: null);
       sut.addMock(request: headRequest, response: headResponse);
 
-      final response = await sut.client.head(baseUrl);
+      final response = await sut.client.head(baseUrl, headers: headers);
 
       _expectEquals(expected: headResponse, actual: response);
       expect([headRequest], sut.interceptedRequests);
@@ -158,6 +162,7 @@ void main() async {
       sut.addMock(request: connectRequest, response: connectResponse);
 
       final request = Request(Method.connect.name, baseUrl);
+      request.headers.addAll(headers);
       final response = await sut.client.send(request);
 
       _expectEquals(
@@ -177,6 +182,7 @@ void main() async {
       sut.addMock(request: optionsRequest, response: optionsResponse);
 
       final request = Request(Method.options.name, baseUrl);
+      request.headers.addAll(headers);
       final response = await sut.client.send(request);
 
       _expectEquals(
@@ -196,6 +202,7 @@ void main() async {
       sut.addMock(request: traceRequest, response: traceResponse);
 
       final request = Request(Method.trace.name, baseUrl);
+      request.headers.addAll(headers);
       final response = await sut.client.send(request);
 
       _expectEquals(
@@ -247,9 +254,9 @@ void main() async {
       sut.addMock(request: testRequest2, response: testResponse2);
       sut.defaultResponse = defaultResponse;
 
-      final response1 = await sut.client.get(baseUrl);
-      final response2 = await sut.client.get(baseUrl);
-      final response3 = await sut.client.get(baseUrl);
+      final response1 = await sut.client.get(baseUrl, headers: headers);
+      final response2 = await sut.client.get(baseUrl, headers: headers);
+      final response3 = await sut.client.get(baseUrl, headers: headers);
 
       _expectEquals(expected: testResponse1, actual: response1);
       _expectEquals(expected: testResponse2, actual: response2);

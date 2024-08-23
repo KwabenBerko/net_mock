@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:net_mock/net_mock.dart';
 import 'package:net_mock/src/method.dart';
 import 'package:net_mock/src/net_mock_request.dart';
@@ -21,6 +23,9 @@ void main() {
       netMock.addMock(
         request: NetMockRequest(
           url: Uri.parse("http://numbersapi.com/42"),
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/json; charset=utf-8"
+          },
           method: Method.get,
         ),
         response: NetMockResponse(

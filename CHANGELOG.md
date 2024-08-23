@@ -37,3 +37,10 @@
 ### Changed
 
 - Export Resource.
+
+## [1.0.6] - 23-08-2024
+
+### Added
+
+- Added support for HTTP interceptors with
+  the [http_interceptors](https://pub.dev/packages/http_interceptor) library.
