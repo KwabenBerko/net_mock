@@ -1,12 +1,8 @@
 import 'dart:io';
 
+import 'package:http/http.dart';
 import 'package:net_mock/net_mock.dart';
-import 'package:net_mock/src/method.dart';
-import 'package:net_mock/src/net_mock_request.dart';
-import 'package:net_mock/src/net_mock_response.dart';
 import 'package:test/test.dart';
-
-import 'number_repository.dart';
 
 void main() {
   late NetMock netMock;
@@ -42,4 +38,20 @@ void main() {
       );
     },
   );
+}
+
+class NumberRepository {
+  final Client client;
+
+  NumberRepository({required this.client});
+
+  Future<String> getFactForNumber({required int number}) async {
+    final response = await client.get(
+      Uri.parse("http://numbersapi.com/$number"),
+      headers: {
+        HttpHeaders.contentTypeHeader: "application/json; charset=utf-8"
+      },
+    );
+    return response.body;
+  }
 }

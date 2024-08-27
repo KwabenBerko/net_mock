@@ -1,7 +1,7 @@
 import 'dart:collection';
 
+import 'package:http/http.dart';
 import 'package:http/testing.dart';
-import 'package:http_interceptor/http_interceptor.dart';
 import 'package:net_mock/src/method.dart';
 
 import 'net_mock_request.dart';
@@ -20,31 +20,25 @@ class NetMock {
   final List<NetMockRequestResponse> _allowedMocks = [];
   NetMockResponse defaultResponse = NetMockResponse(code: 400);
 
-  NetMock({
-    NetMockResponse? defaultResponse,
-    List<InterceptorContract>? interceptors,
-  }) {
-    client = InterceptedClient.build(
-      interceptors: interceptors ?? [],
-      client: MockClient((request) async {
-        final NetMockResponse netMockResponse;
-        final netMockRequest = request.toNetMockRequest;
+  NetMock({NetMockResponse? defaultResponse}) {
+    client = MockClient((request) async {
+      final NetMockResponse netMockResponse;
+      final netMockRequest = request.toNetMockRequest;
 
-        final allowedMock = _allowedMocks
-            .where((allowedMock) => allowedMock.request == netMockRequest)
-            .firstOrNull;
+      final allowedMock = _allowedMocks
+          .where((allowedMock) => allowedMock.request == netMockRequest)
+          .firstOrNull;
 
-        if (allowedMock == null) {
-          netMockResponse = defaultResponse ?? this.defaultResponse;
-        } else {
-          _interceptedRequests.add(netMockRequest);
-          _allowedMocks.remove(allowedMock);
-          netMockResponse = allowedMock.response;
-        }
+      if (allowedMock == null) {
+        netMockResponse = defaultResponse ?? this.defaultResponse;
+      } else {
+        _interceptedRequests.add(netMockRequest);
+        _allowedMocks.remove(allowedMock);
+        netMockResponse = allowedMock.response;
+      }
 
-        return netMockResponse.toResponse;
-      }),
-    );
+      return netMockResponse.toResponse;
+    });
   }
 
   /// A list of intercepted requests that have been processed.

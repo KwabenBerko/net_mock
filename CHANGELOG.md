@@ -44,3 +44,9 @@
 
 - Added support for HTTP interceptors with
   the [http_interceptors](https://pub.dev/packages/http_interceptor) library.
+
+## [1.0.7] - 27-08-2024
+
+### Added
+
+- Removed support for the [http_interceptors](https://pub.dev/packages/http_interceptor) library.

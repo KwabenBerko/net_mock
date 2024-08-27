@@ -25,7 +25,7 @@ Add `net_mock` to your pubspec.yaml:
 
 ```yaml
 dependencies:
-  net_mock: ^1.0.5
+  net_mock: ^1.0.7
 ```
 
 Then, run `flutter pub get` to install the package.
@@ -68,6 +68,22 @@ void main() {
       );
     },
   );
+}
+
+class NumberRepository {
+  final Client client;
+
+  NumberRepository({required this.client});
+
+  Future<String> getFactForNumber({required int number}) async {
+    final response = await client.get(
+      Uri.parse("http://numbersapi.com/$number"),
+      headers: {
+        HttpHeaders.contentTypeHeader: "application/json; charset=utf-8"
+      },
+    );
+    return response.body;
+  }
 }
 
 ```
